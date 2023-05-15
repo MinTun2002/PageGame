@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Comment - quantum</title>
+</head>
+<body>
+    <h1>Comment - quantum</h1>
+
+    <form id="comment-form">
+        <input type="text" id="name-input" placeholder="Your Name"><br>
+        <textarea id="comment-input" placeholder="Enter your comment"></textarea><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Comments</h2>
+    <ul id="comments-list"></ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let commentValue = '';
+
+            // Sự kiện khi người dùng thay đổi nội dung trong input
+            $('#comment-input').on('input', function() {
+                commentValue = $(this).val();
+            });
+
+            // Gửi bình luận
+            $('#comment-form').submit(async function(event) {
+                event.preventDefault();
+
+                const name = $('#name-input').val();
+                const content = commentValue;
+
+                // Kiểm tra nội dung và tên người dùng không được rỗng
+                if (content.trim() === '' || name.trim() === '') {
+                    console.error('Error: Comment content and name are required.');
+                    return;
+                }
+
+                const data = { name, content };
+
+                try {
+                    await $.ajax({
+                        url: '/api/comments/quantum',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function () {
+                            $('#comment-input').val('');
+                            $('#name-input').val('');
+                            commentValue = ''; // Đặt lại giá trị biến sau khi gửi bình luận thành công
+                            loadComments();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error:', error);
+                            console.log(xhr.responseText);
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+
+            // Tải danh sách bình luận
+            async function loadComments() {
+                try {
+                    const response = await $.ajax({
+                        url: '/api/comments/quantum',
+                        method: 'GET',
+                        dataType: 'json'
+                    });
+
+                    // Hiển thị danh sách bình luận
+                    const commentsList = $('#comments-list');
+                    commentsList.empty();
+
+                    response.forEach(comment => {
+                        const commentItem = $('<li>').text(`Name: ${comment.name}, Content: ${comment.content}`);
+                        commentsList.append(commentItem);
+                    });
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+
+            // Gọi hàm loadComments khi trang web được tải lần đầu
+            loadComments();
+        });
+    </script>
+</body>
+</html>

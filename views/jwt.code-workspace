@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "jwt",
+			"path": ".."
+		},
+		{
+			"name": "front-end",
+			"path": "../../API2/front-end"
+		}
+	],
+	"settings": {}
+}

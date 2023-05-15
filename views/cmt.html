@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Game Reviews</title>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<h1>Game Reviews</h1>
+	<h2>Game Title</h2>
+	
+	<div class="reviews">
+		<h3>Reviews:</h3>
+		<ul id="review-list">
+			<!-- Mỗi đánh giá và bình luận sẽ được thêm vào đây -->
+		</ul>
+	</div>
+	
+	<div class="add-review">
+		<h3>Add your review:</h3>
+		<form id="review-form">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" required><br>
+			
+			<label for="rating">Rating:</label>
+			<select id="rating" name="rating" required>
+				<option value="">Select rating</option>
+				<option value="1">1 star</option>
+				<option value="2">2 stars</option>
+				<option value="3">3 stars</option>
+				<option value="4">4 stars</option>
+				<option value="5">5 stars</option>
+			</select><br>
+			
+			<label for="comment">Comment:</label>
+			<textarea id="comment" name="comment" required></textarea><br>
+			
+			<input type="submit" value="Submit Review">
+		</form>
+	</div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
