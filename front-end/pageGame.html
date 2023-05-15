@@ -61,6 +61,7 @@
             <div class="section-1-img">
                 <div class="game">
                 <a href="./game/2048/2048-master/index.html"><div class="img img-1"></div></a>
+<!-- game 1 -->
                 <a class = "cmt">
                     <div class="comment-placeholder">Comment</div>
                     <h1>Comment - 2048</h1>
@@ -150,33 +151,387 @@
                 </a>
                 
             </div>
+<!-- game 2 -->
             <div class="game">
                 <a href="./game/angry-bird-fake/index.html"><div class="img img-2"></div></a>
-                <a href="/api/comments/comment-angrybird"><button class="comment-button">Bình luận</button></a>
+                <a class = "cmt">
+                    <div class="comment-placeholder">Comment</div>
+                    <h1>Comment - angrybird</h1>
+
+                    <form id="comment-form2">
+                        <input type="text" id="name-input2" placeholder="Your Name"><br>
+                        <textarea id="comment-input2" placeholder="Enter your comment"></textarea><br>
+                        <button type="submit">Submit</button>
+                    </form>
+                
+                    <h2>Comments</h2>
+                    <ul id="comments-list2"></ul>
+                
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            let commentValue = '';
+                
+                            // Sự kiện khi người dùng thay đổi nội dung trong input
+                            $('#comment-input2').on('input', function() {
+                                commentValue = $(this).val();
+                            });
+                
+                            // Gửi bình luận
+                            $('#comment-form2').submit(async function(event) {
+                                event.preventDefault();
+                
+                                const name = $('#name-input2').val();
+                                const content = commentValue;
+                
+                                // Kiểm tra nội dung và tên người dùng không được rỗng
+                                if (content.trim() === '' || name.trim() === '') {
+                                    console.error('Error: Comment content and name are required.');
+                                    return;
+                                }
+                
+                                const data = { name, content };
+                
+                                try {
+                                    await $.ajax({
+                                        url: '/api/comments/angrybird',
+                                        method: 'POST',
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(data),
+                                        success: function () {
+                                            $('#comment-input2').val('');
+                                            $('#name-input2').val('');
+                                            commentValue = ''; // Đặt lại giá trị biến sau khi gửi bình luận thành công
+                                            loadComments();
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.error('Error:', error);
+                                            console.log(xhr.responseText);
+                                        }
+                                    });
+                                } catch (error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                
+                            // Tải danh sách bình luận
+                            async function loadComments() {
+                                try {
+                                    const response = await $.ajax({
+                                        url: '/api/comments/angrybird',
+                                        method: 'GET',
+                                        dataType: 'json'
+                                    });
+                
+                                    // Hiển thị danh sách bình luận
+                                    const commentsList = $('#comments-list2');
+                                    commentsList.empty();
+                
+                                    response.forEach(comment => {
+                                        const commentItem = $('<li>').text(`Name: ${comment.name}, Content: ${comment.content}`);
+                                        commentsList.append(commentItem);
+                                    });
+                                } catch (error) {
+                                    console.error('Error:', error);
+                                }
+                            }
+                
+                            // Gọi hàm loadComments khi trang web được tải lần đầu
+                            loadComments();
+                        });
+                    </script>
+                </a>
             </div>
+<!-- game 3 -->
             <div class="game">
                 <a href="./game/co-caro/online-caro-master/online-caro-master/index.html"><div class="img img-3"></div></a>
-                <a href="/api/comments/comment-caro"><button class="comment-button">Bình luận</button></a>
+                <a class = "cmt">
+                    <div class="comment-placeholder">Comment</div>
+                    <h1>Comment - caro</h1>
+
+                    <form id="comment-form3">
+                        <input type="text" id="name-input3" placeholder="Your Name3"><br>
+                        <textarea id="comment-input3" placeholder="Enter your comment"></textarea><br>
+                        <button type="submit">Submit</button>
+                    </form>
+                
+                    <h2>Comments</h2>
+                    <ul id="comments-list3"></ul>
+                
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            let commentValue = '';
+                
+                            // Sự kiện khi người dùng thay đổi nội dung trong input
+                            $('#comment-input3').on('input', function() {
+                                commentValue = $(this).val();
+                            });
+                
+                            // Gửi bình luận
+                            $('#comment-form3').submit(async function(event) {
+                                event.preventDefault();
+                
+                                const name = $('#name-input3').val();
+                                const content = commentValue;
+                
+                                // Kiểm tra nội dung và tên người dùng không được rỗng
+                                if (content.trim() === '' || name.trim() === '') {
+                                    console.error('Error: Comment content and name are required.');
+                                    return;
+                                }
+                
+                                const data = { name, content };
+                
+                                try {
+                                    await $.ajax({
+                                        url: '/api/comments/caro',
+                                        method: 'POST',
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(data),
+                                        success: function () {
+                                            $('#comment-input3').val('');
+                                            $('#name-input3').val('');
+                                            commentValue = ''; // Đặt lại giá trị biến sau khi gửi bình luận thành công
+                                            loadComments();
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.error('Error:', error);
+                                            console.log(xhr.responseText);
+                                        }
+                                    });
+                                } catch (error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                
+                            // Tải danh sách bình luận
+                            async function loadComments() {
+                                try {
+                                    const response = await $.ajax({
+                                        url: '/api/comments/caro',
+                                        method: 'GET',
+                                        dataType: 'json'
+                                    });
+                
+                                    // Hiển thị danh sách bình luận
+                                    const commentsList = $('#comments-list3');
+                                    commentsList.empty();
+                
+                                    response.forEach(comment => {
+                                        const commentItem = $('<li>').text(`Name: ${comment.name}, Content: ${comment.content}`);
+                                        commentsList.append(commentItem);
+                                    });
+                                } catch (error) {
+                                    console.error('Error:', error);
+                                }
+                            }
+                
+                            // Gọi hàm loadComments khi trang web được tải lần đầu
+                            loadComments();
+                        });
+                    </script>
+                </a>
             </div>
+<!-- game 4 -->
             <div class="game">
                 <a href="./game/quantum-game/quantum-game-master/quantum-game-master/index.html"><div class="img img-4"></div></a>
-                <a href="/api/comments/comment-quantum"><button class="comment-button">Bình luận</button></a>
+                <a class = "cmt">
+                    <div class="comment-placeholder">Comment</div>
+                    <h1>Comment - quantum</h1>
+
+                    <form id="comment-form4">
+                        <input type="text" id="name-input4" placeholder="Your Name"><br>
+                        <textarea id="comment-input4" placeholder="Enter your comment"></textarea><br>
+                        <button type="submit">Submit</button>
+                    </form>
+                
+                    <h2>Comments</h2>
+                    <ul id="comments-list4"></ul>
+                
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            let commentValue = '';
+                
+                            // Sự kiện khi người dùng thay đổi nội dung trong input
+                            $('#comment-input4').on('input', function() {
+                                commentValue = $(this).val();
+                            });
+                
+                            // Gửi bình luận
+                            $('#comment-form4').submit(async function(event) {
+                                event.preventDefault();
+                
+                                const name = $('#name-input4').val();
+                                const content = commentValue;
+                
+                                // Kiểm tra nội dung và tên người dùng không được rỗng
+                                if (content.trim() === '' || name.trim() === '') {
+                                    console.error('Error: Comment content and name are required.');
+                                    return;
+                                }
+                
+                                const data = { name, content };
+                
+                                try {
+                                    await $.ajax({
+                                        url: '/api/comments/quantum',
+                                        method: 'POST',
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(data),
+                                        success: function () {
+                                            $('#comment-input4').val('');
+                                            $('#name-input4').val('');
+                                            commentValue = ''; // Đặt lại giá trị biến sau khi gửi bình luận thành công
+                                            loadComments();
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.error('Error:', error);
+                                            console.log(xhr.responseText);
+                                        }
+                                    });
+                                } catch (error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                
+                            // Tải danh sách bình luận
+                            async function loadComments() {
+                                try {
+                                    const response = await $.ajax({
+                                        url: '/api/comments/quantum',
+                                        method: 'GET',
+                                        dataType: 'json'
+                                    });
+                
+                                    // Hiển thị danh sách bình luận
+                                    const commentsList = $('#comments-list4');
+                                    commentsList.empty();
+                
+                                    response.forEach(comment => {
+                                        const commentItem = $('<li>').text(`Name: ${comment.name}, Content: ${comment.content}`);
+                                        commentsList.append(commentItem);
+                                    });
+                                } catch (error) {
+                                    console.error('Error:', error);
+                                }
+                            }
+                
+                            // Gọi hàm loadComments khi trang web được tải lần đầu
+                            loadComments();
+                        });
+                    </script>
+                </a>
             </div>
+ <!-- game5 -->
             <div class="game">
                 <a href="./game/connect-candy/code-game-the-goi-ngot-ngao/index.html"><div class="img img-6"></div></a>
-                <a href="/api/comments/comment-candy"><button class="comment-button">Bình luận</button></a>
-            </div>
-               <div class="game">
+                <a class = "cmt">
+                    <div class="comment-placeholder">Comment</div>
+                    <h1>Comment - Candy</h1>
+
+                    <form id="comment-form5">
+                        <input type="text" id="name-input5" placeholder="Your Name"><br>
+                        <textarea id="comment-input5" placeholder="Enter your comment"></textarea><br>
+                        <button type="submit">Submit</button>
+                    </form>
+                
+                    <h2>Comments</h2>
+                    <ul id="comments-list5"></ul>
+                
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            let commentValue = '';
+                
+                            // Sự kiện khi người dùng thay đổi nội dung trong input
+                            $('#comment-input5').on('input', function() {
+                                commentValue = $(this).val();
+                            });
+                
+                            // Gửi bình luận
+                            $('#comment-form5').submit(async function(event) {
+                                event.preventDefault();
+                
+                                const name = $('#name-input5').val();
+                                const content = commentValue;
+                
+                                // Kiểm tra nội dung và tên người dùng không được rỗng
+                                if (content.trim() === '' || name.trim() === '') {
+                                    console.error('Error: Comment content and name are required.');
+                                    return;
+                                }
+                
+                                const data = { name, content };
+                
+                                try {
+                                    await $.ajax({
+                                        url: '/api/comments/comment-candy',
+                                        method: 'POST',
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(data),
+                                        success: function () {
+                                            $('#comment-input5').val('');
+                                            $('#name-input5').val('');
+                                            commentValue = ''; // Đặt lại giá trị biến sau khi gửi bình luận thành công
+                                            loadComments();
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.error('Error:', error);
+                                            console.log(xhr.responseText);
+                                        }
+                                    });
+                                } catch (error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                
+                            // Tải danh sách bình luận
+                            async function loadComments() {
+                                try {
+                                    const response = await $.ajax({
+                                        url: '/api/comments/comment-candy',
+                                        method: 'GET',
+                                        dataType: 'json'
+                                    });
+                
+                                    // Hiển thị danh sách bình luận
+                                    const commentsList = $('#comments-list5');
+                                    commentsList.empty();
+                
+                                    response.forEach(comment => {
+                                        const commentItem = $('<li>').text(`Name: ${comment.name}, Content: ${comment.content}`);
+                                        commentsList.append(commentItem);
+                                    });
+                                } catch (error) {
+                                    console.error('Error:', error);
+                                }
+                            }
+                
+                            // Gọi hàm loadComments khi trang web được tải lần đầu
+                            loadComments();
+                        });
+                    </script>
+                </a>
+            </div> 
+ <!-- game6 -->
+            <div class="game">
                 <a href="./game/tower-block/Tower-blocks-game-master/index.html"><div class="img img-5"></div></a>
                 <a href="/api/comments/comment-tower"><button class="comment-button">Bình luận</button></a>
-                
-               </div>
+                <a class = "cmt">
+                    <div class="comment-placeholder">Comment</div>
+                </a>
+            </div>
+<!-- gam7 -->
                <div class="game">
                 <a href="./game/co-caro/online-caro-master/online-caro-master/index.html"><div class="img img-7"></div></a>
                 <a href="/api/comments/comment-tower"><button class="comment-button">Bình luận</button></a>
+                <a class = "cmt">
+                    <div class="comment-placeholder">Comment</div>
+                </a>
                </div>
-            
-            </div>
+        
         </div>
         
         <div class="game-categories">

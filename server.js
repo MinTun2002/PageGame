@@ -287,22 +287,31 @@ app.get('/Admin/viewAllUsers', (req, res)=>{
       res.status(500).json('Lỗi sever')
   })
 })
+//game1
 app.get('/api/comments/comment-2048',checkToken, (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'comment-2048.html'));
   console.log()
 });
+//game2
 app.get('/api/comments/comment-angrybird',checkToken, (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'comment-angrybird.html'));
   
 });
+//game3
 app.get('/api/comments/comment-caro',checkToken, (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'comment-online-caro-master.html'));
   
 });
+//game4
 app.get('/api/comments/comment-quantum',checkToken, (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'comment-quantum.html'));
   
 });
+//game5
+app.get('/api/comments/comment-candy',checkToken, (req, res) =>{
+  res.json("Game5");
+})
+
 const commentsRouter = require('./routers/comment');
 
 // Sử dụng router cho đường dẫn '/api/comments'
